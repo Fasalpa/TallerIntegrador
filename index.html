@@ -7,33 +7,47 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-<main id="contenedor">
-    
-    <h1>Task Manager</h1>
-    
-    <div id="contadorTareas">
-      <p><span>0</span> de <span>0</span> tareas completadas</p>
-    </div>
+    <main id="contenedor">
+      <h1>Task Manager</h1>
 
-    <input type="text" id="nuevaTarea" placeholder="Escribe una tarea..." />
-    
-    <select name="tareas" id="desplegar">
-      <option value="" disabled selected>---Categoria---</option>
-      <option value="estudio">📒 Estudio</option>
-      <option value="personal">🧘🏼‍♂️ Personal</option>
-      <option value="trabajo">🖥️ Trabajo</option>
-      <option value="urgente">⚡ Urgente</option>
-      <option value="otra">🕳️ Otra</option>
-    </select>
+      <div id="contadorTareas">
+        <p><span>0</span> de <span>0</span> tareas completadas</p>
+      </div>
 
-    <button id="btnAgregar" onclick="agregarTarea()">Agregar tarea +</button>
+      <input type="text" id="nuevaTarea" placeholder="Escribe una tarea..." />
+      <span id="mensajeError" style="display: none"
+        >⚠️ El campo está vacío.</span
+      >
 
-    <div id="acciones">
-      <button id="btnLimpiar">🧹 Limpiar tareas completadas</button>
-    </div>
+      <select name="tareas" id="listaCategorias">
+        <option value="" disabled selected>---Categoria---</option>
+        <option value="estudio">📒 Estudio</option>
+        <option value="personal">🧘🏼‍♂️ Personal</option>
+        <option value="trabajo">🖥️ Trabajo</option>
+        <option value="urgente">⚡ Urgente</option>
+        <option value="otra">🕳️ Otra</option>
+      </select>
+      <span id="mensajeCategoria" style="display: none"
+        >⚠️ Seleccione primero una categoría.</span
+      >
 
-  </main>
+      <input
+        id="nuevaCategoria"
+        type="text"
+        autocapitalize="sentences"
+        style="display: none"
+        placeholder="Escriba nueva categoría"
+      />
+      <span id="mensajeInput" style="display: none"
+        >⚠️ Escriba la categoría primero.</span
+      >
+      <button id="btnAgregar" onclick="agregarTarea()">Agregar tarea +</button>
 
-  <script src="app.js"></script>
-</body>
+      <div id="acciones">
+        <button id="btnLimpiar">🧹 Limpiar tareas completadas</button>
+      </div>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
 </html>
