@@ -100,15 +100,18 @@ function crearTarjetaTarea(tarea) {
 
   botonEliminar.addEventListener("click", function (event) {
     event.stopPropagation();
-    label.remove();
+    let confirmar = confirm("Está seguro de eliminar?");
+    if (confirmar == true) {
+      label.remove();
 
-    let posicion = tareas.indexOf(tarea);
+      let posicion = tareas.indexOf(tarea);
 
-    if (posicion > -1) {
-      tareas.splice(posicion, 1);
+      if (posicion > -1) {
+        tareas.splice(posicion, 1);
+      }
+      modificadorContadorTareasCompletadas();
+      modificarContadorTareas();
     }
-    modificadorContadorTareasCompletadas();
-    modificarContadorTareas();
   });
 
   label.appendChild(creacionInput);
