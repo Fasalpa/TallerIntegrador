@@ -80,7 +80,9 @@ function crearTarjetaTarea(tarea) {
     label.classList.add("categoria-urgente");
   }
 
-  let botonEliminar = document.createElement("span");
+  let botonEliminar = document.createElement("button");
+  botonEliminar.textContent = "🗑️";
+  botonEliminar.classList.add("btn-eliminar-tarea");
 
   creacionInput.addEventListener("change", function () {
     if (this.checked) {
@@ -96,10 +98,24 @@ function crearTarjetaTarea(tarea) {
     modificadorContadorTareasCompletadas();
   });
 
+  botonEliminar.addEventListener("click", function (event) {
+    event.stopPropagation();
+    label.remove();
+
+    let posicion = tareas.indexOf(tarea);
+
+    if (posicion > -1) {
+      tareas.splice(posicion, 1);
+    }
+    modificadorContadorTareasCompletadas();
+    modificarContadorTareas();
+  });
+
   label.appendChild(creacionInput);
   contenedorTexto.appendChild(spanTexto);
   contenedorTexto.appendChild(spanCategoria);
   label.appendChild(contenedorTexto);
+  label.appendChild(botonEliminar);
   listaTareas.appendChild(label);
 }
 
