@@ -1,5 +1,4 @@
 let tareas = [];
-let contadorTareasCompletadas = 0;
 let contadorTotalTareas = 0;
 let validador = false;
 
@@ -77,6 +76,26 @@ function crearTarjetaTarea(tarea) {
   spanCategoria.classList.add("categoria-tarea");
   spanCategoria.textContent = ` Categoría: ${tarea.categoria}`;
 
+  if (tarea.categoria === "urgente") {
+    label.classList.add("categoria-urgente");
+  }
+
+  let botonEliminar = document.createElement("span");
+
+  creacionInput.addEventListener("change", function () {
+    if (this.checked) {
+      tarea.estado = true;
+      label.style.textDecoration = "line-through";
+      label.style.opacity = "0.2";
+    } else {
+      tarea.estado = false;
+      label.style.textDecoration = "none";
+      label.style.opacity = "1";
+    }
+
+    modificadorContadorTareasCompletadas();
+  });
+
   label.appendChild(creacionInput);
   contenedorTexto.appendChild(spanTexto);
   contenedorTexto.appendChild(spanCategoria);
@@ -95,16 +114,13 @@ function agregarTarea() {
       : listaCategorias.value;
 
   if (validador === true && nuevaTarea.value.trim() != "") {
-    tareas.push({
+    let objetoTarea = {
       tarea: nuevaTarea.value,
       categoria: categoria,
       estado: false,
-    });
-    crearTarjetaTarea({
-      tarea: nuevaTarea.value,
-      categoria: categoria,
-      estado: false,
-    });
+    };
+    tareas.push(objetoTarea);
+    crearTarjetaTarea(objetoTarea);
     modificarContadorTareas();
   } else {
     console.log("No se agregó la tarea.");
@@ -117,3 +133,14 @@ function modificarContadorTareas() {
   totalTareas.textContent = contadorTotalTareas;
 }
 
+function modificadorContadorTareasCompletadas() {
+  let contador = 0;
+
+  tareas.forEach(function (tarea) {
+    if (tarea.estado === true) {
+      contador++;
+    }
+  });
+
+  numeroHechas.textContent = contador;
+}

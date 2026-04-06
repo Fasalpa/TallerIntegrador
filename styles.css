@@ -134,6 +134,11 @@ select {
   font-weight: bold;
 }
 
+.categoria-urgente{
+    border: solid red 1px;
+    background-color:rgb(250, 183, 183) ;
+}
+
 #btnLimpiar {
   color: #555;
   font-size: 12px;
