@@ -99,6 +99,12 @@ select {
   color: rgb(25, 15, 128);
 }
 
+#listaTareas {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 .itemTarea {
   display: flex;
   flex-direction: row;
@@ -134,9 +140,9 @@ select {
   font-weight: bold;
 }
 
-.categoria-urgente{
-    border: solid red 1px;
-    background-color:rgb(250, 183, 183) ;
+.categoria-urgente {
+  border: solid red 1px;
+  background-color: rgb(250, 183, 183);
 }
 
 #btnLimpiar {
