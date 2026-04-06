@@ -11,7 +11,7 @@
       <h1>Task Manager</h1>
 
       <div id="contadorTareas">
-        <p><span>0</span> de <span>0</span> tareas completadas</p>
+        <p><span id="numeroHechas">0</span> de <span id="totalTareas">0</span> tareas completadas</p>
       </div>
 
       <input type="text" id="nuevaTarea" placeholder="Escribe una tarea..." />
@@ -42,6 +42,10 @@
         >⚠️ Escriba la categoría primero.</span
       >
       <button id="btnAgregar" onclick="agregarTarea()">Agregar tarea +</button>
+
+      <span id="tareaAgregada" style="display: none">✅ Tarea agregada. </span>
+
+      <div id="listaTareas"></div>
 
       <div id="acciones">
         <button id="btnLimpiar">🧹 Limpiar tareas completadas</button>

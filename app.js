@@ -1,5 +1,6 @@
 let tareas = [];
-let contadorTareas = 0;
+let contadorTareasCompletadas = 0;
+let contadorTotalTareas = 0;
 let validador = false;
 
 let nuevaTarea = document.getElementById("nuevaTarea");
@@ -9,6 +10,10 @@ let nuevaCategoria = document.getElementById("nuevaCategoria");
 let mensajeError = document.getElementById("mensajeError");
 let mensajeCategoria = document.getElementById("mensajeCategoria");
 let mensajeInput = document.getElementById("mensajeInput");
+let tareaAgregada = document.getElementById("tareaAgregada");
+let listaTareas = document.getElementById("listaTareas");
+let numeroHechas = document.getElementById("numeroHechas");
+let totalTareas = document.getElementById("totalTareas");
 
 listaCategorias.addEventListener("click", function () {
   if (listaCategorias.value === "otra") {
@@ -47,14 +52,68 @@ function validarOtra() {
   }
 }
 
+function mensajeAgregado() {
+  if (validador === true && nuevaTarea.value.trim() != "") {
+    tareaAgregada.style.display = "block";
+  } else {
+    console.log("No se agregó la tarea.");
+    tareaAgregada.style.display = "none";
+  }
+}
+
+function crearTarjetaTarea(tarea) {
+  let label = document.createElement("label");
+  label.classList.add("itemTarea");
+  let creacionInput = document.createElement("input");
+  creacionInput.type = "checkbox";
+  /// crear el span para que no queden pegados los textos ome.
+  let contenedorTexto = document.createElement("div");
+  contenedorTexto.classList.add("contenedorTextoTarea");
+  let spanTexto = document.createElement("span");
+  spanTexto.classList.add("texto-tarea");
+  spanTexto.textContent = ` ${tarea.tarea}\n`;
+
+  let spanCategoria = document.createElement("span");
+  spanCategoria.classList.add("categoria-tarea");
+  spanCategoria.textContent = ` Categoría: ${tarea.categoria}`;
+
+  label.appendChild(creacionInput);
+  contenedorTexto.appendChild(spanTexto);
+  contenedorTexto.appendChild(spanCategoria);
+  label.appendChild(contenedorTexto);
+  listaTareas.appendChild(label);
+}
+
 function agregarTarea() {
   validarCampo();
   validarCartegoria();
   validarOtra();
 
-  if (validador === true) {
-    console.log("Se agregó la tarea");
+  let categoria =
+    listaCategorias.value === "otra"
+      ? nuevaCategoria.value
+      : listaCategorias.value;
+
+  if (validador === true && nuevaTarea.value.trim() != "") {
+    tareas.push({
+      tarea: nuevaTarea.value,
+      categoria: categoria,
+      estado: false,
+    });
+    crearTarjetaTarea({
+      tarea: nuevaTarea.value,
+      categoria: categoria,
+      estado: false,
+    });
+    modificarContadorTareas();
   } else {
     console.log("No se agregó la tarea.");
   }
+  mensajeAgregado();
 }
+
+function modificarContadorTareas() {
+  contadorTotalTareas = tareas.length;
+  totalTareas.textContent = contadorTotalTareas;
+}
+
