@@ -54,6 +54,10 @@ function validarOtra() {
 function mensajeAgregado() {
   if (validador === true && nuevaTarea.value.trim() != "") {
     tareaAgregada.style.display = "block";
+
+    setTimeout(function () {
+      tareaAgregada.style.display = "none";
+    }, 3000);
   } else {
     console.log("No se agregó la tarea.");
     tareaAgregada.style.display = "none";
@@ -102,16 +106,16 @@ function crearTarjetaTarea(tarea) {
     event.stopPropagation();
     let confirmar = confirm("Está seguro de eliminar?");
     if (confirmar == true) {
-      label.remove();
-
-      let posicion = tareas.indexOf(tarea);
-
-      if (posicion > -1) {
-        tareas.splice(posicion, 1);
-      }
-      modificadorContadorTareasCompletadas();
-      modificarContadorTareas();
     }
+    label.remove();
+
+    let posicion = tareas.indexOf(tarea);
+
+    if (posicion > -1) {
+      tareas.splice(posicion, 1);
+    }
+    modificadorContadorTareasCompletadas();
+    modificarContadorTareas();
   });
 
   label.appendChild(creacionInput);
@@ -145,6 +149,8 @@ function agregarTarea() {
     console.log("No se agregó la tarea.");
   }
   mensajeAgregado();
+  nuevaTarea.value = "";
+  nuevaTarea.focus;
 }
 
 function modificarContadorTareas() {
