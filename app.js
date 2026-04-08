@@ -189,10 +189,10 @@ btnLimpiar.addEventListener("click", function (event) {
 
       if (checkbox.checked) {
         tarjeta.remove();
+        console.log("Se borraron las tareas completadas.");
       }
       modificadorContadorTareasCompletadas();
       modificarContadorTareas();
-      console.log("Se borraron las tareas completadas.");
     });
   }
 });
