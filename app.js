@@ -13,6 +13,7 @@ let tareaAgregada = document.getElementById("tareaAgregada");
 let listaTareas = document.getElementById("listaTareas");
 let numeroHechas = document.getElementById("numeroHechas");
 let totalTareas = document.getElementById("totalTareas");
+let btnLimpiar = document.getElementById("btnLimpiar");
 
 listaCategorias.addEventListener("click", function () {
   if (listaCategorias.value === "otra") {
@@ -27,7 +28,6 @@ function validarCampo() {
     mensajeError.style.display = "block";
     validador = false;
   } else {
-    validador = true;
     mensajeError.style.display = "none";
   }
 }
@@ -38,7 +38,6 @@ function validarCartegoria() {
     validador = false;
   } else {
     mensajeCategoria.style.display = "none";
-    validador = true;
   }
 }
 
@@ -104,18 +103,20 @@ function crearTarjetaTarea(tarea) {
 
   botonEliminar.addEventListener("click", function (event) {
     event.stopPropagation();
-    let confirmar = confirm("Está seguro de eliminar?");
-    if (confirmar == true) {
-    }
-    label.remove();
-
     let posicion = tareas.indexOf(tarea);
+    let confirmar = confirm("Está seguro de eliminar?");
+    if (confirmar === true) {
+      label.remove();
 
-    if (posicion > -1) {
-      tareas.splice(posicion, 1);
+      if (posicion > -1) {
+        tareas.splice(posicion, 1);
+      }
+
+      modificadorContadorTareasCompletadas();
+      modificarContadorTareas();
+    } else {
+      console.log("eliminación cancelada.");
     }
-    modificadorContadorTareasCompletadas();
-    modificarContadorTareas();
   });
 
   label.appendChild(creacionInput);
@@ -127,6 +128,8 @@ function crearTarjetaTarea(tarea) {
 }
 
 function agregarTarea() {
+  validador = true;
+
   validarCampo();
   validarCartegoria();
   validarOtra();
@@ -142,6 +145,8 @@ function agregarTarea() {
       categoria: categoria,
       estado: false,
     };
+    console.log("Nombeeee, vamos es volando mijo.");
+
     tareas.push(objetoTarea);
     crearTarjetaTarea(objetoTarea);
     modificarContadorTareas();
@@ -150,7 +155,7 @@ function agregarTarea() {
   }
   mensajeAgregado();
   nuevaTarea.value = "";
-  nuevaTarea.focus;
+  nuevaTarea.focus();
 }
 
 function modificarContadorTareas() {
@@ -169,3 +174,25 @@ function modificadorContadorTareasCompletadas() {
 
   numeroHechas.textContent = contador;
 }
+
+btnLimpiar.addEventListener("click", function (event) {
+  event.stopPropagation();
+  let confirmar = confirm("Está seguro de eliminar?");
+  if (confirmar) {
+    tareas = tareas.filter(function (tarea) {
+      return tarea.estado === false;
+    });
+    let todasLasTareas = document.querySelectorAll(".itemTarea");
+
+    todasLasTareas.forEach(function (tarjeta) {
+      let checkbox = tarjeta.querySelector("input[type = 'checkbox']");
+
+      if (checkbox.checked) {
+        tarjeta.remove();
+      }
+      modificadorContadorTareasCompletadas();
+      modificarContadorTareas();
+      console.log("Se borraron las tareas completadas.");
+    });
+  }
+});
